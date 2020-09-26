@@ -1,5 +1,6 @@
 # r_giskard
-Small project for experiments with unconditioned and conditioned reflexes
+
+Small project for experiments with emotions, unconditioned and conditioned reflexes
 
 ## Common Terms
 
@@ -11,14 +12,18 @@ Small project for experiments with unconditioned and conditioned reflexes
 
 ## Project-specific Terms
 
-Reflex here - is a hardly connected with used hardware program module containing algoritm, executed with an interruption.
+Reflex here - is a hardly connected with used hardware program module containing algorithm, executed with an interruption.
 
 * Reflex could be unconditioned (UR) - simple hardcoded interruption.
 * Reflex could be conditioned (CR):
     * before an UR some unhandled interruption is happening more then once
-    * after N times of paires UR_n+CR_m is registered in a system. Thats means than given UR is becoming the handler of given CR.
+    * after N times of pairs UR_n+CR_m is registered in a system. That's means than given UR is becoming the handler of given CR.
 
 ## Structure
+
+Emotional core:
+
+<img src="assets/emotional_core_structure.png" width="550">
 
 Interruptions types:
 
