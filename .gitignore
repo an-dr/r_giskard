@@ -1,2 +1,5 @@
 /sw/.idea/workspace.xml
 /sw/cmake-build-debug/
+**/.idea
+**/cmake-build-debug
+**/.vscode
