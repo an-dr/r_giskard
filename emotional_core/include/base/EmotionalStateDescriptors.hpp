@@ -31,29 +31,29 @@
 typedef struct {
     std::string name;
     ConditionsVector_t conditions;
-} EmotionalStateStruct_t;
-typedef std::list<EmotionalStateStruct_t> EmotionalStatesList_t;
+} EmotionalStateDescriptorStruct_t;
+typedef std::list<EmotionalStateDescriptorStruct_t> EmotionalStateDescriptorsList_t;
 
-class EmotionalStates {
+class EmotionalStateDescriptors {
 private:
-    EmotionalStatesList_t states;
+    EmotionalStateDescriptorsList_t states;
 
 public:
-    const EmotionalStateStruct_t mixed_state;
+    const EmotionalStateDescriptorStruct_t mixed_state;
 
-    EmotionalStates();
+    EmotionalStateDescriptors();
 
-    error_t Add(EmotionalStateStruct_t newState);
+    error_t Add(EmotionalStateDescriptorStruct_t newState);
 
     error_t Remove(std::string name);
 
-    const EmotionalStateStruct_t *Get(std::string name) const;
+    const EmotionalStateDescriptorStruct_t *Get(std::string name) const;
 
-    const EmotionalStatesList_t &list() const;
+    const EmotionalStateDescriptorsList_t &list() const;
 
     error_t GetParams(in_params_t &params_holder) const;
 
     int size();
 
-    EmotionalStateStruct_t operator[](int num);
+    EmotionalStateDescriptorStruct_t operator[](int num);
 };

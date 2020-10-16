@@ -20,20 +20,33 @@
 //
 // *************************************************************************
 
-#pragma once
-
 #include "base/CoreState.hpp"
-#include "base/EmotionalStates.hpp"
 #include "base/common_types.h"
 
-class EmotionalStateAnalyzer {
-private:
-    EmotionalStateAnalyzer() = default;
 
-public:
-    static bool CheckState(const EmotionalStateStruct_t *emo, CoreState *st);
+error_t CoreState::SetState(const EmotionalStateDescriptorStruct_t *state) {
+    _emotionalState_p = state;
+    return NO_ERROR;
+}
 
-    static error_t CheckParamVsCondition(const string &par_name,
-                                         const float &par_val,
-                                         const ConditionStruct_t &cond);
-};
+const EmotionalStateDescriptorStruct_t *CoreState::GetState() {
+    return _emotionalState_p;
+}
+
+error_t CoreState::ReloadParams(const EmotionalStateDescriptors *emo_states,
+                            const InDataDescriptors *in_data_dsc) {
+    if ((!emo_states) && (!in_data_dsc)) {
+        return ERROR_WRONGSTATE;
+    }
+    in_params_t p1;
+    in_params_t p2;
+    if (emo_states) {
+        emo_states->GetParams(p1);
+    }
+    if (in_data_dsc) {
+        in_data_dsc->GetParams(p2);
+    }
+    p1.insert(p2.begin(), p2.end());
+    RETURN_ON_ERROR(coreParams.LoadParamsSet(p1));
+    return NO_ERROR;
+}

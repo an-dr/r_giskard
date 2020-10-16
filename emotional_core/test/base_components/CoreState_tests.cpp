@@ -20,42 +20,49 @@
 //
 // *************************************************************************
 
-#include "EmotionalStatesManager_tests.hpp"
-#include <stdio.h>
-#include "base/EmotionalStates.hpp"
-#include "base/common_types.h"
 
-int EmotionalStatesManager_test() {
-    EmotionalStateStruct_t state_panic = {
+#include "CoreState_tests.hpp"
+#include <stdio.h>
+#include "base/CoreState.hpp"
+
+void SystemState_test() {
+    CoreState st;
+    EmotionalStateDescriptors es;
+
+    EmotionalStateDescriptorStruct_t state_panic = {
             .name = "panic",
             .conditions = {
-                    {"activity",  GREATER_THAN,       1},
+                    {"activity", GREATER_THAN, 1},
                     {"happiness", LESS_THAN_OR_EQUAL, .5},
-            }
-    };
-    EmotionalStateStruct_t state_happiness = {
+            }};
+    EmotionalStateDescriptorStruct_t state_happiness = {
             .name = "happiness",
             .conditions = {
-                    {"activity",  LESS_THAN,    .1},
+                    {"activity", LESS_THAN, .1},
                     {"happiness", GREATER_THAN, .5},
-            }
-    };
+            }};
+    es.Add(state_panic);
+    es.Add(state_happiness);
 
-    EmotionalStates es;
-    printf("%d\n", es.Add(state_panic));
-    printf("%d\n", es.Add(state_happiness));
-    printf("%d\n", es.Add(state_panic));
+    int res;
+    res = st.coreParams.AddParam("curiosity");
+    printf("%d\n", res);
 
-    printf("%d\n", es.Remove("panic"));
-    printf("%d\n", es.Remove("panic"));
+    res = st.coreParams.AddParam("comfort", 10.1);
+    printf("%d\n", res);
 
-    const EmotionalStateStruct_t * h = es.Get("happiness");
-    printf("%s\n", h->name.c_str());
+    res = st.coreParams.SetParam("not a param", 100);
+    printf("%d\n", res);
 
-    const EmotionalStateStruct_t * thing = es.Get("non-existing stuff");
-    if (!thing){
-        printf("Not found\n");
-    }
+    res = st.coreParams.SetParam("curiosity", 100.500);
+    printf("%d\n", res);
 
-    return 0;
+
+    printf("%f\n", st.coreParams.GetParam("curiosity"));
+
+    res = st.SetState(es.Get("panic"));
+    printf("%d\n", res);
+
+    const EmotionalStateDescriptorStruct_t *current_state = st.GetState();
+    printf("%s\n", (current_state->name).c_str());
 }

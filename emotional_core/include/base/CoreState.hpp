@@ -20,33 +20,38 @@
 //
 // *************************************************************************
 
-#include "base/CoreState.hpp"
+#pragma once
+
+#include <map>
+#include <string>
+#include "base/CoreParams.hpp"
+#include "base/EmotionalStateDescriptors.hpp"
 #include "base/common_types.h"
+#include "error_t.h"
 
+using namespace std;
 
-error_t CoreState::SetState(const EmotionalStateStruct_t *state) {
-    _emotionalState_p = state;
-    return NO_ERROR;
-}
+typedef map<string, float> CoreParamsMap_t;
 
-const EmotionalStateStruct_t *CoreState::GetState() {
-    return _emotionalState_p;
-}
+class CoreState {
+private:
+    const EmotionalStateDescriptorStruct_t *_emotionalState_p;
 
-error_t CoreState::ReloadParams(const EmotionalStates *emo_states,
-                            const InDataDescriptors *in_data_dsc) {
-    if ((!emo_states) && (!in_data_dsc)) {
-        return ERROR_WRONGSTATE;
-    }
-    in_params_t p1;
-    in_params_t p2;
-    if (emo_states) {
-        emo_states->GetParams(p1);
-    }
-    if (in_data_dsc) {
-        in_data_dsc->GetParams(p2);
-    }
-    p1.insert(p2.begin(), p2.end());
-    RETURN_ON_ERROR(coreParams.LoadParamsSet(p1));
-    return NO_ERROR;
-}
+public:
+    CoreParams coreParams;
+
+    SensorValuesMap_t sensorValues;
+
+    const EmotionalStateDescriptorStruct_t *GetState();
+
+    error_t SetState(const EmotionalStateDescriptorStruct_t *state);
+
+    /**
+     * @brief Update parameters of the core state using EmotionalStates and InDataDescriptors objects
+     * @param emo_states
+     * @param in_data_dsc
+     * @return NO_ERROR on success or an error code
+     */
+    error_t ReloadParams(const EmotionalStateDescriptors *emo_states,
+                         const InDataDescriptors *in_data_dsc);
+};

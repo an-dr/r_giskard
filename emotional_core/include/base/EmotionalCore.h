@@ -26,7 +26,7 @@
 #include <string>
 #include <vector>
 #include "base/CoreState.hpp"
-#include "base/EmotionalStates.hpp"
+#include "base/EmotionalStateDescriptors.hpp"
 #include "base/InDataDescriptors.hpp"
 #include "base/common_types.h"
 #include "error_t.h"
@@ -36,7 +36,7 @@ private:
     CoreState _coreState;/// @brief stores current core's state
 
 protected:
-    EmotionalStates *emotionalStates_p     = nullptr;/// @brief pointer to an object storing possible emotional states
+    EmotionalStateDescriptors *emotionalStates_p     = nullptr;/// @brief pointer to an object storing possible emotional states
     InDataDescriptors *inDataDescriptors_p = nullptr;/// @brief pointer to an object storing description of input data
 
 public:
@@ -47,7 +47,7 @@ public:
      * @param es_p the pointer
      * @return
      */
-    error_t SetEmotionalStates(EmotionalStates *es_p);
+    error_t SetEmotionalStates(EmotionalStateDescriptors *es_p);
 
     /**
      * @brief Set the pointer to a InDataDescriptors object
@@ -73,7 +73,7 @@ public:
      * @brief Get a constant pointer to current emotional state
      * @return pointer to the state
      */
-    const EmotionalStateStruct_t *GetState();
+    const EmotionalStateDescriptorStruct_t *GetState();
 
     //    TODO:
     //    EmotionalCore(const InDataDescriptorsList_t &descriptors, const EmotionalStatesList_t &states);
