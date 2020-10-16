@@ -24,7 +24,7 @@
 #include "base/EmotionalCoreDataWriter.hpp"
 #include "base/EmotionalStateAnalyzer.hpp"
 
-error_t EmotionalCore::SetEmotionalStates(EmotionalStates *es_p) {
+error_t EmotionalCore::SetEmotionalStates(EmotionalStateDescriptors *es_p) {
     emotionalStates_p = es_p;
     RETURN_ON_ERROR(_coreState.ReloadParams(emotionalStates_p, inDataDescriptors_p));
     return NO_ERROR;
@@ -41,7 +41,7 @@ error_t EmotionalCore::UpdateCurrentEmotionalState() {
     if (!emotionalStates_p) {
         throw logic_error("EmotionalStates object is not set!");
     }
-    EmotionalStatesList_t::const_iterator est_it;
+    EmotionalStateDescriptorsList_t::const_iterator est_it;
     for (est_it = emotionalStates_p->list().begin(); est_it != emotionalStates_p->list().end(); est_it++) {
         if (EmotionalStateAnalyzer::CheckState(&*est_it, &_coreState)) {
             _coreState.SetState(&*est_it);
@@ -58,6 +58,6 @@ error_t EmotionalCore::WriteData(SensorDataStruct_t data) {
     return NO_ERROR;
 }
 
-const EmotionalStateStruct_t *EmotionalCore::GetState() {
+const EmotionalStateDescriptorStruct_t *EmotionalCore::GetState() {
     return _coreState.GetState();
 }

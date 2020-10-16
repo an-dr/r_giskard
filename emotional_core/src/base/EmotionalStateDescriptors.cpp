@@ -21,12 +21,12 @@
 // *************************************************************************
 
 #include <algorithm>
-#include "base/EmotionalStates.hpp"
+#include "base/EmotionalStateDescriptors.hpp"
 
 using namespace std;
 
-error_t EmotionalStates::Add(EmotionalStateStruct_t newState) {
-    EmotionalStatesList_t::iterator st_it;
+error_t EmotionalStateDescriptors::Add(EmotionalStateDescriptorStruct_t newState) {
+    EmotionalStateDescriptorsList_t::iterator st_it;
     for (st_it = states.begin(); st_it != states.end(); st_it++) {
         if (newState.name == st_it->name) {
             return ERROR_EXIST;// state already exists
@@ -37,8 +37,8 @@ error_t EmotionalStates::Add(EmotionalStateStruct_t newState) {
 
 }
 
-error_t EmotionalStates::Remove(string name) {
-    EmotionalStatesList_t::iterator st_it;
+error_t EmotionalStateDescriptors::Remove(string name) {
+    EmotionalStateDescriptorsList_t::iterator st_it;
     for (st_it = states.begin(); st_it != states.end(); st_it++) {
         if (name == st_it->name) {
             states.erase(st_it);
@@ -48,8 +48,8 @@ error_t EmotionalStates::Remove(string name) {
     return ERROR_NOTEXIST;// state didn't exists
 }
 
-const EmotionalStateStruct_t *EmotionalStates::Get(string name) const{
-    EmotionalStatesList_t::const_iterator st_it;
+const EmotionalStateDescriptorStruct_t *EmotionalStateDescriptors::Get(string name) const{
+    EmotionalStateDescriptorsList_t::const_iterator st_it;
     for (st_it = states.begin(); st_it != states.end(); st_it++) {
         if (name == st_it->name) {
             return &*st_it;
@@ -58,8 +58,8 @@ const EmotionalStateStruct_t *EmotionalStates::Get(string name) const{
     return nullptr;// state didn't exists
 }
 
-error_t EmotionalStates::GetParams(in_params_t &params_holder) const{
-    EmotionalStatesList_t::const_iterator st_it;
+error_t EmotionalStateDescriptors::GetParams(in_params_t &params_holder) const{
+    EmotionalStateDescriptorsList_t::const_iterator st_it;
     ConditionsVector_t::const_iterator cond_it;
     for (st_it = states.begin(); st_it != states.end(); st_it++) {
         for (cond_it = st_it->conditions.begin(); cond_it != st_it->conditions.end(); cond_it++) {
@@ -69,18 +69,18 @@ error_t EmotionalStates::GetParams(in_params_t &params_holder) const{
     return NO_ERROR;
 }
 
-const EmotionalStatesList_t &EmotionalStates::list() const {
+const EmotionalStateDescriptorsList_t &EmotionalStateDescriptors::list() const {
     return states;
 }
 
-int EmotionalStates::size() {
+int EmotionalStateDescriptors::size() {
     return states.size();
 }
 
-EmotionalStateStruct_t EmotionalStates::operator[](int num) {
-    EmotionalStatesList_t::iterator e_st_it;
+EmotionalStateDescriptorStruct_t EmotionalStateDescriptors::operator[](int num) {
+    EmotionalStateDescriptorsList_t::iterator e_st_it;
     e_st_it = std::next(states.begin(), num);
     return *e_st_it;
 }
 
-EmotionalStates::EmotionalStates() : states(), mixed_state({"mixed", {}}) {}
+EmotionalStateDescriptors::EmotionalStateDescriptors() : states(), mixed_state({"mixed", {}}) {}

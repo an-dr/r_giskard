@@ -45,20 +45,20 @@ static void SetUpInDataDescriptors(InDataDescriptors &idd) {
     idd.Add(proximity);
 }
 
-void SetUpEmotionalStates(EmotionalStates &es) {
-    EmotionalStateStruct_t state_panic = {
+void SetUpEmotionalStates(EmotionalStateDescriptors &es) {
+    EmotionalStateDescriptorStruct_t state_panic = {
             .name = "in panic",
             .conditions = {
                     {"activity", GREATER_THAN, 50},
                     {"happiness", LESS_THAN_OR_EQUAL, 0},
             }};
-    EmotionalStateStruct_t state_happiness = {
+    EmotionalStateDescriptorStruct_t state_happiness = {
             .name = "happy",
             .conditions = {
                     {"activity", LESS_THAN, 10},
                     {"happiness", GREATER_THAN, 50},
             }};
-    EmotionalStateStruct_t state_calm = {
+    EmotionalStateDescriptorStruct_t state_calm = {
             .name = "calm",
             .conditions = {
                     {"activity", LESS_THAN, 10},
@@ -73,7 +73,7 @@ void SetUpEmotionalStates(EmotionalStates &es) {
 
 int EmotionalCore_test() {
     InDataDescriptors idd;
-    EmotionalStates es;
+    EmotionalStateDescriptors es;
     SetUpInDataDescriptors(idd);
     SetUpEmotionalStates(es);
 

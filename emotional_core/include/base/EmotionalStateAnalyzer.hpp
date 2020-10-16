@@ -22,36 +22,18 @@
 
 #pragma once
 
-#include <map>
-#include <string>
-#include "base/CoreParams.hpp"
-#include "base/EmotionalStates.hpp"
+#include "base/CoreState.hpp"
+#include "base/EmotionalStateDescriptors.hpp"
 #include "base/common_types.h"
-#include "error_t.h"
 
-using namespace std;
-
-typedef map<string, float> CoreParamsMap_t;
-
-class CoreState {
+class EmotionalStateAnalyzer {
 private:
-    const EmotionalStateStruct_t *_emotionalState_p;
+    EmotionalStateAnalyzer() = default;
 
 public:
-    CoreParams coreParams;
+    static bool CheckState(const EmotionalStateDescriptorStruct_t *emo, CoreState *st);
 
-    SensorValuesMap_t sensorValues;
-
-    const EmotionalStateStruct_t *GetState();
-
-    error_t SetState(const EmotionalStateStruct_t *state);
-
-    /**
-     * @brief Update parameters of the core state using EmotionalStates and InDataDescriptors objects
-     * @param emo_states
-     * @param in_data_dsc
-     * @return NO_ERROR on success or an error code
-     */
-    error_t ReloadParams(const EmotionalStates *emo_states,
-                         const InDataDescriptors *in_data_dsc);
+    static error_t CheckParamVsCondition(const string &par_name,
+                                         const float &par_val,
+                                         const ConditionStruct_t &cond);
 };

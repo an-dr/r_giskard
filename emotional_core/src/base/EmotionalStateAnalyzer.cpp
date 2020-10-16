@@ -22,7 +22,7 @@
 
 #include "base/EmotionalStateAnalyzer.hpp"
 
-bool EmotionalStateAnalyzer::CheckState(const EmotionalStateStruct_t *emo, CoreState *st) {
+bool EmotionalStateAnalyzer::CheckState(const EmotionalStateDescriptorStruct_t *emo, CoreState *st) {
     int res;
     ConditionsVector_t::const_iterator conds_it;
     CoreParamsMap_t::const_iterator core_param_it;
