@@ -20,20 +20,11 @@
 //
 // *************************************************************************
 
+
 #pragma once
 
-#include "base/CoreState.hpp"
-#include "base/EmotionalStateDescriptors.hpp"
-#include "base/common_types.h"
+#include <map>
+#include <string>
 
-class EmotionalStateAnalyzer {
-private:
-    EmotionalStateAnalyzer() = default;
 
-public:
-    static bool CheckState(const EmotionalStateDescriptorStruct_t *emo, CoreState *st);
-
-    static error_t CheckParamVsCondition(const string &par_name,
-                                         const float &par_val,
-                                         const ConditionStruct_t &cond);
-};
+typedef std::map<std::string, float> CoreParamsMap_t;

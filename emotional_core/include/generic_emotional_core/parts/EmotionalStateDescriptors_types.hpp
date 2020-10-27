@@ -20,33 +20,44 @@
 //
 // *************************************************************************
 
-#include "base/CoreState.hpp"
-#include "base/common_types.h"
 
+#pragma once
 
-error_t CoreState::SetState(const EmotionalStateDescriptorStruct_t *state) {
-    _emotionalState_p = state;
-    return NO_ERROR;
-}
+#include <list>
+#include <map>
+#include <set>
+#include <string>
+#include <vector>
 
-const EmotionalStateDescriptorStruct_t *CoreState::GetState() {
-    return _emotionalState_p;
-}
+/**
+ * @brief Conditional operators
+ */
+typedef enum {
+    EQUALS = 0x0,
+    NOT_EQUALS,
+    GREATER_THAN,
+    GREATER_THAN_OR_EQUAL,
+    LESS_THAN,
+    LESS_THAN_OR_EQUAL
+} ConditionalOperatorsEnum_t;
 
-error_t CoreState::ReloadParams(const EmotionalStateDescriptors *emo_states,
-                            const InDataDescriptors *in_data_dsc) {
-    if ((!emo_states) && (!in_data_dsc)) {
-        return ERROR_WRONGSTATE;
-    }
-    in_params_t p1;
-    in_params_t p2;
-    if (emo_states) {
-        emo_states->GetParams(p1);
-    }
-    if (in_data_dsc) {
-        in_data_dsc->GetParams(p2);
-    }
-    p1.insert(p2.begin(), p2.end());
-    RETURN_ON_ERROR(coreParams.LoadParamsSet(p1));
-    return NO_ERROR;
-}
+/**
+ * @brief Describes a condition of a parameter, e.g. (Parameter A <= 1.234)
+ */
+typedef struct {
+    std::string param;
+    ConditionalOperatorsEnum_t op;
+    float value;
+} ConditionStruct_t;
+
+/**
+ * @brief Container for storing several conditions
+ */
+typedef std::vector<ConditionStruct_t> ConditionsVector_t;
+
+typedef struct {
+    std::string name;
+    ConditionsVector_t conditions;
+} EmotionalStateDescriptorStruct_t;
+
+typedef std::list<EmotionalStateDescriptorStruct_t> EmotionalStateDescriptorsList_t;

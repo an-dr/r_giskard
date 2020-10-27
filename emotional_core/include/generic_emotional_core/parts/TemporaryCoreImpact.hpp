@@ -20,38 +20,16 @@
 //
 // *************************************************************************
 
+
 #pragma once
 
-#include <map>
+#include <list>
 #include <string>
-#include "base/CoreParams.hpp"
-#include "base/EmotionalStateDescriptors.hpp"
-#include "base/common_types.h"
-#include "error_t.h"
 
-using namespace std;
+typedef struct {
+    float change_per_sec;    ///< coefficient proportional the time how long the impact will take place
+    std::string param_name;  ///< name of a parameter affected by the impact
+    float delta_value;       ///< how much will be added to the given parameter
+} TemporaryCoreImpact_t;
 
-typedef map<string, float> CoreParamsMap_t;
-
-class CoreState {
-private:
-    const EmotionalStateDescriptorStruct_t *_emotionalState_p;
-
-public:
-    CoreParams coreParams;
-
-    SensorValuesMap_t sensorValues;
-
-    const EmotionalStateDescriptorStruct_t *GetState();
-
-    error_t SetState(const EmotionalStateDescriptorStruct_t *state);
-
-    /**
-     * @brief Update parameters of the core state using EmotionalStates and InDataDescriptors objects
-     * @param emo_states
-     * @param in_data_dsc
-     * @return NO_ERROR on success or an error code
-     */
-    error_t ReloadParams(const EmotionalStateDescriptors *emo_states,
-                         const InDataDescriptors *in_data_dsc);
-};
+typedef std::list<TemporaryCoreImpact_t> TemporaryCoreImpactsList_t;

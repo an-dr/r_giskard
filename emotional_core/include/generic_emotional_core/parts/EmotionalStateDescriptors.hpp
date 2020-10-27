@@ -24,23 +24,17 @@
 
 #include <list>
 #include <string>
-#include "base/InDataDescriptors.hpp"
-#include "base/common_types.h"
+#include "CoreParams.hpp"
+#include "EmotionalStateDescriptors_types.hpp"
+#include "InDataDescriptors.hpp"
 #include "error_t.h"
 
-typedef struct {
-    std::string name;
-    ConditionsVector_t conditions;
-} EmotionalStateDescriptorStruct_t;
-typedef std::list<EmotionalStateDescriptorStruct_t> EmotionalStateDescriptorsList_t;
 
 class EmotionalStateDescriptors {
 private:
-    EmotionalStateDescriptorsList_t states;
+    EmotionalStateDescriptorsList_t _list;
 
 public:
-    const EmotionalStateDescriptorStruct_t mixed_state;
-
     EmotionalStateDescriptors();
 
     error_t Add(EmotionalStateDescriptorStruct_t newState);
@@ -49,11 +43,11 @@ public:
 
     const EmotionalStateDescriptorStruct_t *Get(std::string name) const;
 
-    const EmotionalStateDescriptorsList_t &list() const;
+    const EmotionalStateDescriptorsList_t &GetList() const;
 
-    error_t GetParams(in_params_t &params_holder) const;
+    error_t GetParamsSet(in_params_t &params_holder) const;
 
-    int size();
+    int Size();
 
     EmotionalStateDescriptorStruct_t operator[](int num);
 };

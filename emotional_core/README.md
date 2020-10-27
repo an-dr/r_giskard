@@ -4,17 +4,16 @@ The aim of this library is to implement emotional model that could be used by ot
 
 ## Structure
 
-<img src="docs/pics/EmotionalCore_ops_simple.png" width="550">
-
-Emotional core consists of three main parts:
+Emotional core consists of:
 
 - Input Data Descriptors - describes data from sensors and how it should affect the core
 - Emotional States Descriptors - named states of the core described by specific values of core parameters.
-- Core State - contains core parameters, value of sensors and pointer to relevant to parameters Emotional  States Descriptors
+- Sensor values
+- Parameters: base, temporary, sensorial (calculated from values and input data descriptors) and total (a sum of others)
 
 Detailed structure:
 
-<img src="docs/pics/EmotionalCore_ops_detailed.png" width="550">
+<img src="docs/pics/EmotionalCore_ops.png" width="550">
 
 ## Example of data
 
@@ -31,7 +30,7 @@ Example of a core's emotional state:
 
 ```json
 {
-    "name": happiness,
+    "name": "happiness",
     "conditions": [
             {
                 "param":  "cortisol",
@@ -73,6 +72,16 @@ Input data example:
 {
     "sensor_name": "temperature sensor",
     "value": 120
+}
+```
+
+Temporary impact example (say, something like a "bad thought"):
+
+```json
+{
+    "change_per_sec" : 5,
+    "param_name" : "cortisol",
+    "delta_value" : 50
 }
 ```
 
