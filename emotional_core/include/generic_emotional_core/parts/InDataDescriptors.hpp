@@ -22,4 +22,29 @@
 
 #pragma once
 
-int InDataDescriptor_test();
+#include <list>
+#include <string>
+#include "InDataDescriptors_types.hpp"
+#include "error_t.h"
+
+class InDataDescriptors {
+private:
+    InDataDescriptorsList_t _list;
+
+public:
+    InDataDescriptors() = default;
+
+    error_t Add(const InDataDescriptorStruct_t &newDescriptor);
+
+    error_t Remove(const std::string &name);
+
+    const InDataDescriptorStruct_t *Get(const std::string &name);
+
+    const InDataDescriptorsList_t &GetList() const;
+
+    error_t GetParams(in_params_t &params_holder) const;
+
+    int Size() const;
+
+    InDataDescriptorStruct_t operator[](int num);
+};

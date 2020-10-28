@@ -23,47 +23,33 @@
 #pragma once
 
 #include <map>
-#include <set>
 #include <string>
-#include <vector>
+#include "CoreParams_types.hpp"
+#include "InDataDescriptors.hpp"
+#include "error_t.h"
 
+typedef std::map<std::string, float> CoreParamsMap_t;
 
-/**
- * @brief Describes the data coming from a sensor, e.g. {"light sensor 1", 10}
- */
-typedef struct {
-    std::string sensor_name;
-    float value;
-} SensorDataStruct_t;
+class CoreParams {
+private:
+    CoreParamsMap_t _map;
 
-/**
- * @brief Container to store current data from all sensors
- */
-typedef std::map<std::string, float> SensorValuesMap_t;
+public:
+    bool IsParamExists(const std::string &name);
 
-/**
- * @brief Conditional operators
- */
-typedef enum {
-    EQUALS = 0x0,
-    NOT_EQUALS,
-    GREATER_THAN,
-    GREATER_THAN_OR_EQUAL,
-    LESS_THAN,
-    LESS_THAN_OR_EQUAL
-} ConditionalOperatorsEnum_t;
+    error_t AddParam(const std::string &name);
 
-/**
- * @brief Describes a condition of a parameter, e.g. (Parameter A <= 1.234)
- */
-typedef struct {
-    std::string param;
-    ConditionalOperatorsEnum_t op;
-    float value;
-} ConditionStruct_t;
+    error_t AddParam(const std::string &name, float init_value);
 
-/**
- * @brief Container for storing several conditions
- */
-typedef std::vector<ConditionStruct_t> ConditionsVector_t;
+    error_t IncrementParam(const std::string &name, float value);
 
+    error_t LoadParamsSet(const in_params_t &params_set);
+
+    float GetParam(const std::string &name);
+
+    const CoreParamsMap_t *GetParams();
+
+    error_t RemoveAllParams();
+
+    error_t SetParam(const std::string &name, float value);
+};

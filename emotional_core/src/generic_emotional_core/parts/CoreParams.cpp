@@ -20,12 +20,12 @@
 //
 // *************************************************************************
 
-#include "base/CoreParams.hpp"
+#include "generic_emotional_core/parts/CoreParams.hpp"
 
 using namespace std;
 
 bool CoreParams::IsParamExists(const string &name) {
-    if (_coreParams.find(name) != _coreParams.end()) {
+    if (_map.find(name) != _map.end()) {
         return true;
     } else {
         return false;
@@ -36,7 +36,7 @@ error_t CoreParams::AddParam(const string &name) {
     if (IsParamExists(name)) {
         return ERROR_EXIST;
     } else {
-        _coreParams[name] = 0;
+        _map[name] = 0;
     }
     return NO_ERROR;
 }
@@ -45,19 +45,18 @@ error_t CoreParams::AddParam(const string &name, float init_value) {
     if (IsParamExists(name)) {
         return ERROR_EXIST;
     } else {
-        _coreParams[name] = init_value;
+        _map[name] = init_value;
     }
     return NO_ERROR;
 }
 
 error_t CoreParams::IncrementParam(const string &name, float value) {
-    _coreParams[name] += value;
+    _map[name] += value;
     return NO_ERROR;
 }
 
 error_t CoreParams::LoadParamsSet(const in_params_t &params_set) {
-    in_params_t::const_iterator i;
-    for (i = params_set.begin(); i != params_set.end(); i++) {
+    for (auto i = params_set.begin(); i != params_set.end(); i++) {
         AddParam(*i);
     }
     return NO_ERROR;
@@ -65,24 +64,24 @@ error_t CoreParams::LoadParamsSet(const in_params_t &params_set) {
 
 float CoreParams::GetParam(const string &name) {
     if (IsParamExists(name)) {
-        return _coreParams[name];
+        return _map[name];
     } else {
         return 0;
     }
 }
 
 const CoreParamsMap_t *CoreParams::GetParams() {
-    return &_coreParams;
+    return &_map;
 }
 
 error_t CoreParams::RemoveAllParams() {
-    _coreParams.clear();
+    _map.clear();
     return NO_ERROR;
 }
 
-error_t CoreParams::SetParam(const string & name, float value) {
+error_t CoreParams::SetParam(const string &name, float value) {
     if (IsParamExists(name)) {
-        _coreParams[name] = value;
+        _map[name] = value;
     } else {
         return ERROR_NOTEXIST;
     }

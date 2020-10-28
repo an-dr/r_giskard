@@ -20,50 +20,50 @@
 //
 // *************************************************************************
 
-#include "base/InDataDescriptors.hpp"
+#include "generic_emotional_core/parts/InDataDescriptors.hpp"
 
 using namespace std;
 
 error_t InDataDescriptors::Add(const InDataDescriptorStruct_t &newDescriptor) {
     InDataDescriptorsList_t::iterator ind_it;
-    for (ind_it = descriptors.begin(); ind_it != descriptors.end(); ind_it++) {
+    for (ind_it = _list.begin(); ind_it != _list.end(); ind_it++) {
         if (newDescriptor.sensor_name == ind_it->sensor_name) {
-            return ERROR_EXIST;// state already exists
+            return ERROR_EXIST;  // state already exists
         }
     }
-    descriptors.push_back(newDescriptor);
+    _list.push_back(newDescriptor);
     return NO_ERROR;
 }
 
 error_t InDataDescriptors::Remove(const string &name) {
     InDataDescriptorsList_t::iterator ind_it;
-    for (ind_it = descriptors.begin(); ind_it != descriptors.end(); ind_it++) {
+    for (ind_it = _list.begin(); ind_it != _list.end(); ind_it++) {
         if (name == ind_it->sensor_name) {
-            descriptors.erase(ind_it);
+            _list.erase(ind_it);
             return NO_ERROR;
         }
     }
-    return ERROR_NOTEXIST;// state didn't exists
+    return ERROR_NOTEXIST;  // state didn't exists
 }
 
 const InDataDescriptorStruct_t *InDataDescriptors::Get(const string &name) {
     InDataDescriptorsList_t::iterator ind_it;
-    for (ind_it = descriptors.begin(); ind_it != descriptors.end(); ind_it++) {
+    for (ind_it = _list.begin(); ind_it != _list.end(); ind_it++) {
         if (name == ind_it->sensor_name) {
             return &*ind_it;
         }
     }
-    return nullptr;// state didn't exists
+    return nullptr;  // state didn't exists
 }
 
-const InDataDescriptorsList_t &InDataDescriptors::list() const {
-    return descriptors;
+const InDataDescriptorsList_t &InDataDescriptors::GetList() const {
+    return _list;
 }
 
 error_t InDataDescriptors::GetParams(in_params_t &params_holder) const {
     params_holder.clear();
     InDataDescriptorsList_t::const_iterator ind_it;
-    for (ind_it = descriptors.begin(); ind_it != descriptors.end(); ind_it++) {
+    for (ind_it = _list.begin(); ind_it != _list.end(); ind_it++) {
         SensorDataWeightsVector_t::const_iterator ip;
         for (ip = ind_it->weights.begin(); ip != ind_it->weights.end(); ip++) {
             params_holder.insert(ip->core_param_name);
@@ -72,12 +72,12 @@ error_t InDataDescriptors::GetParams(in_params_t &params_holder) const {
     return NO_ERROR;
 }
 
-int InDataDescriptors::size() const {
-    return descriptors.size();
+int InDataDescriptors::Size() const {
+    return _list.size();
 }
 
 InDataDescriptorStruct_t InDataDescriptors::operator[](int num) {
     InDataDescriptorsList_t::iterator desc_it;
-    desc_it = std::next(descriptors.begin(), num);
+    desc_it = std::next(_list.begin(), num);
     return *desc_it;
 }
