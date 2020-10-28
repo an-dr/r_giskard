@@ -21,7 +21,7 @@
 // *************************************************************************
 
 #include <algorithm>
-#include "generic_emotional_core/parts/EmotionalStateDescriptors.hpp"
+#include "GenericEmotionalCore/EmotionalStateDescriptors.hpp"
 
 using namespace std;
 

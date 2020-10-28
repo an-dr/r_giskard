@@ -26,10 +26,10 @@
 #include <string>
 #include <vector>
 #include "error_t.h"
-#include "parts/CoreParams.hpp"
-#include "parts/EmotionalStateDescriptors.hpp"
-#include "parts/InDataDescriptors.hpp"
-#include "parts/TemporaryCoreImpact.hpp"
+#include "GenericEmotionalCore/CoreParams.hpp"
+#include "GenericEmotionalCore/EmotionalStateDescriptors.hpp"
+#include "GenericEmotionalCore/InDataDescriptors.hpp"
+#include "GenericEmotionalCore/TemporaryCoreImpact.hpp"
 
 class GenericEmotionalCore {
 private:

@@ -21,7 +21,7 @@
 // *************************************************************************
 
 #include <cstdio>
-#include "generic_emotional_core/GenericEmotionalCore.hpp"
+#include "GenericEmotionalCore.hpp"
 
 
 int main()
