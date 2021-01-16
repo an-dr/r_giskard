@@ -20,7 +20,7 @@
 //
 // *************************************************************************
 
-#include "generic_emotional_core/parts/CoreParams.hpp"
+#include "GenericEmotionalCore/CoreParams.hpp"
 
 using namespace std;
 

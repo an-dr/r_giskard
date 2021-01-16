@@ -20,7 +20,7 @@
 //
 // *************************************************************************
 
-#include "generic_emotional_core/parts/InDataDescriptors.hpp"
+#include "GenericEmotionalCore/InDataDescriptors.hpp"
 
 using namespace std;
 
