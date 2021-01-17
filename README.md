@@ -1,8 +1,12 @@
-# r_giskard
+# The R.Giskard project
 
 Small project for experiments with emotions, unconditioned and conditioned reflexes
 
-(Note: The project named after R.Giskard, a robot from novels by I.Asimov which could control human's emotions)
+(Note: The project named after R. Giskard Reventlov, a robot from novels by I.Asimov which could control human's emotions)
+
+Subrepos:
+
+- [an-dr/r_giskard_EmotionCore](https://github.com/an-dr/r_giskard_EmotionCore)
 
 ## Terms
 
@@ -14,10 +18,9 @@ Small project for experiments with emotions, unconditioned and conditioned refle
 **Classical conditioning** occurs when a conditioned stimulus (CS) is paired with an unconditioned stimulus (US). Usually, the conditioned stimulus is a neutral stimulus (e.g., the sound of a tuning fork), the unconditioned stimulus is biologically potent (e.g., the taste of food) and the unconditioned response (UR) to the unconditioned stimulus is an unlearned reflex response (e.g., salivation). After pairing is repeated the organism exhibits a conditioned response (CR) to the conditioned stimulus when the conditioned stimulus is presented alone. (A conditioned response may occur after only one pairing.) Thus, unlike the UR, the CR is acquired through experience, and it is also less permanent than the UR.
 [Source: Classical conditioning - Wikipedia](https://en.wikipedia.org/wiki/Classical_conditioning)
 
-
 ## Emotions
 
-For implementing a model of emotions the Emotional core was developed. [Details here](emotional_core/README.md)
+For implementing a model of emotions the Emotion Core was developed. [Details here](https://github.com/an-dr/r_giskard_EmotionCore)
 
 ## Responses
 
