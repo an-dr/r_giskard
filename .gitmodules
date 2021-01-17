@@ -1,0 +1,3 @@
+[submodule "EmotionCore"]
+	path = EmotionCore
+	url = ../r_giskard_EmotionCore.git
